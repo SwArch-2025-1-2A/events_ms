@@ -1,0 +1,25 @@
+services:
+  netapipostgresql:
+    image: ${DOCKER_REGISTRY-}netapipostgresql
+    build:
+      context: .
+      dockerfile: NetApiPostgreSQL/Dockerfile
+  postgres:
+    build:
+      context: NetApiPostgreSQL/postgreSQL
+      dockerfile: Dockerfile
+    image: mu_events_db
+    container_name: pgTestDB
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: webUser
+      POSTGRES_PASSWORD: 159753
+      POSTGRES_DB: mu_events_db
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
+  pgadmin_data:
