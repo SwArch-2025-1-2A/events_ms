@@ -1,0 +1,109 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|c:\\users\\leo\\source\\repos\\netapipostgresql\\docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|solutionrelative:docker-compose.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|c:\\users\\leo\\source\\repos\\netapipostgresql\\netapipostgresql\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|solutionrelative:netapipostgresql\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|c:\\users\\leo\\source\\repos\\netapipostgresql\\docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{81DDED9D-158B-E303-5F62-77A2896D2A5A}|docker-compose.dcproj|solutionrelative:docker-compose.override.yml||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|c:\\users\\leo\\source\\repos\\netapipostgresql\\netapipostgresql\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|solutionrelative:netapipostgresql\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|c:\\users\\leo\\source\\repos\\netapipostgresql\\netapipostgresql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{EA85DB99-D017-4CA2-8876-B3310E24CF16}|NetApiPostgreSQL\\NetApiPostgreSQL.csproj|solutionrelative:netapipostgresql\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "docker-compose.override.yml",
+              "DocumentMoniker": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\docker-compose.override.yml",
+              "RelativeDocumentMoniker": "docker-compose.override.yml",
+              "ToolTip": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\docker-compose.override.yml",
+              "RelativeToolTip": "docker-compose.override.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-06-17T14:09:59.642Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "docker-compose.yml",
+              "DocumentMoniker": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\docker-compose.yml",
+              "RelativeDocumentMoniker": "docker-compose.yml",
+              "ToolTip": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\docker-compose.yml",
+              "RelativeToolTip": "docker-compose.yml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2025-06-17T08:44:04.386Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\Dockerfile",
+              "RelativeDocumentMoniker": "NetApiPostgreSQL\\Dockerfile",
+              "ToolTip": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\Dockerfile",
+              "RelativeToolTip": "NetApiPostgreSQL\\Dockerfile",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2025-06-17T08:43:25.723Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\Program.cs",
+              "RelativeDocumentMoniker": "NetApiPostgreSQL\\Program.cs",
+              "ToolTip": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\Program.cs",
+              "RelativeToolTip": "NetApiPostgreSQL\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB0AAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-06-17T08:18:45.597Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\appsettings.json",
+              "RelativeDocumentMoniker": "NetApiPostgreSQL\\appsettings.json",
+              "ToolTip": "C:\\Users\\Leo\\source\\repos\\NetApiPostgreSQL\\NetApiPostgreSQL\\appsettings.json",
+              "RelativeToolTip": "NetApiPostgreSQL\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-06-17T05:31:43.531Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
