@@ -3,8 +3,11 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /App
 
 # Exponemos el puerto
-EXPOSE 8080
+EXPOSE ${mu_events_ms_INTERNAL_PORT:-8080}
 
+# Release no produce el endpoint con el Swagger, Development sí
+
+ARG BUILD_CONFIGURATION=${mu_events_ms_BUILD_CONFIGURATION:-Release}
 # Copia configuracion del proyecto
 COPY ./*.csproj ./
 
