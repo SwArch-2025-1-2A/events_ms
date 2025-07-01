@@ -23,7 +23,8 @@ namespace NetApiPostgreSQL.Repositories
             var db = dbConnection();
             var sql = @"UPDATE ""Event""
                         SET deleted_at = now()
-                        WHERE id = @Id";
+                        WHERE id = @Id
+                        AND deleted_at IS NULL";
             var result = await db.ExecuteAsync(sql, new { Id = id });
             return result > 0;
         }
@@ -31,14 +32,14 @@ namespace NetApiPostgreSQL.Repositories
         public async Task<IEnumerable<Models.Evento>> GetAll()
         {
             var db = dbConnection();
-            var sql = @"SELECT * FROM ""Event""";
+            var sql = @"SELECT * FROM ""Event"" WHERE deleted_at IS NULL";
             return await db.QueryAsync<Evento>(sql, new { });
         }
 
         public async Task<Models.Evento> GetEvento(Guid id)
         {
             var db = dbConnection();
-            var sql = @"SELECT * FROM ""Event"" WHERE id = @id";
+            var sql = @"SELECT * FROM ""Event"" WHERE id = @id AND deleted_at IS NULL";
             return await db.QueryFirstOrDefaultAsync<Evento>(sql, new { id });
         }
 
@@ -71,7 +72,8 @@ namespace NetApiPostgreSQL.Repositories
                             user_creator_id = @User_Creator_Id,
                             group_creator_id = @Group_Creator_Id,
                             updated_at = now()
-                        WHERE id = @Id";
+                        WHERE id = @Id
+                        AND deleted_at IS NULL";
 
             var result = await db.ExecuteAsync(sql, evento);
             return result > 0;
