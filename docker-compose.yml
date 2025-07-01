@@ -2,12 +2,13 @@ services:
   mu_events_ms:
     build:
       context: ./NetApiPostgreSQL/
+      args:
+        BUILD_CONFIGURATION: ${mu_events_ms_BUILD_CONFIGURATION:-Release}
       
     hostname: ${mu_events_ms_HOSTNAME:-mu_events_ms}
     container_name: ${mu_events_ms_HOSTNAME:-mu_events_ms}
 
     environment:
-        BUILD_CONFIGURATION: ${mu_events_ms_BUILD_CONFIGURATION:-Release}
         DB_HOSTNAME: ${mu_events_db_HOSTNAME:-mu_events_db}
         DB_NAME: ${mu_events_db_DB:-events}
         DB_USER: ${mu_events_db_USER:-postgres}
