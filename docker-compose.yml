@@ -1,18 +1,17 @@
 services:
-  netapipostgresql:
-    image: mu_events
-    
+  mu_events:
+    image: mu_events 
     build:
       context: NetApiPostgreSQL/
       dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - "8080:8080"
-  postgres:
+  mu_events_db:
+    image: mu_events_db
     build:
       context: postgreSQL/
       dockerfile: Dockerfile
-    image: mu_events_db
-    container_name: pgTestDB
     restart: unless-stopped
     environment:
       POSTGRES_USER: webUser
@@ -20,8 +19,6 @@ services:
       POSTGRES_DB: mu_events_db
     volumes:
       - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
 
 volumes:
   pgdata:
