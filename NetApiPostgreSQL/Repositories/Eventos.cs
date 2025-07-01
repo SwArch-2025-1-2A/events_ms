@@ -18,7 +18,7 @@ namespace NetApiPostgreSQL.Repositories
             _connectionString = connectionString;
         }
 
-        public async Task<bool> DeleteEvento(int id)
+        public async Task<bool> DeleteEvento(Guid id)
         {
             var db = dbConnection();
             var sql = @"UPDATE ""Event""
@@ -35,7 +35,7 @@ namespace NetApiPostgreSQL.Repositories
             return await db.QueryAsync<Evento>(sql, new { });
         }
 
-        public async Task<Models.Evento> GetEvento(int id)
+        public async Task<Models.Evento> GetEvento(Guid id)
         {
             var db = dbConnection();
             var sql = @"SELECT * FROM ""Event"" WHERE id = @id";
