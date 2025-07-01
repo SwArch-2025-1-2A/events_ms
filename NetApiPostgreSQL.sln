@@ -1,11 +1,8 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.36203.30
+VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetApiPostgreSQL", "NetApiPostgreSQL\NetApiPostgreSQL.csproj", "{EA85DB99-D017-4CA2-8876-B3310E24CF16}"
-EndProject
-Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{81DDED9D-158B-E303-5F62-77A2896D2A5A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetApiPostgreSQL", "NetApiPostgreSQL\NetApiPostgreSQL.csproj", "{E207D20A-C4E6-61F7-C0D5-C4201A44F037}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +10,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{EA85DB99-D017-4CA2-8876-B3310E24CF16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA85DB99-D017-4CA2-8876-B3310E24CF16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA85DB99-D017-4CA2-8876-B3310E24CF16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA85DB99-D017-4CA2-8876-B3310E24CF16}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81DDED9D-158B-E303-5F62-77A2896D2A5A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E207D20A-C4E6-61F7-C0D5-C4201A44F037}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E207D20A-C4E6-61F7-C0D5-C4201A44F037}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E207D20A-C4E6-61F7-C0D5-C4201A44F037}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E207D20A-C4E6-61F7-C0D5-C4201A44F037}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {402502F3-320B-491D-88BE-9F1BB0B2F34D}
+		SolutionGuid = {A71F73B3-5771-4519-9A68-5000D2BB0D19}
 	EndGlobalSection
 EndGlobal

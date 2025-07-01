@@ -1,12 +1,15 @@
 services:
   netapipostgresql:
-    image: ${DOCKER_REGISTRY-}netapipostgresql
+    image: mu_events
+    
     build:
-      context: .
-      dockerfile: NetApiPostgreSQL/Dockerfile
+      context: NetApiPostgreSQL/
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
   postgres:
     build:
-      context: NetApiPostgreSQL/postgreSQL
+      context: postgreSQL/
       dockerfile: Dockerfile
     image: mu_events_db
     container_name: pgTestDB
