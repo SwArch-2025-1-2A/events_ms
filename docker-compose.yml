@@ -48,7 +48,7 @@ services:
       - mu-events-db-data:/var/lib/postgresql/data
       # Copies the initialization script to the container to create the schema
       # The script is only run if the database is empty, so it can't run migrations
-      - ./NetApiPostgreSQL/PostgreSQL/:/docker-entrypoint-initdb.d/
+      - ./PostgreSQL/:/docker-entrypoint-initdb.d/
 
 volumes:
   mu-events-db-data:
