@@ -1,30 +1,27 @@
-# Consulte https://aka.ms/customizecontainer para aprender a personalizar su contenedor de depuración y cómo Visual Studio usa este Dockerfile para compilar sus imágenes para una depuración más rápida.
-
-# Esta fase se usa cuando se ejecuta desde VS en modo rápido (valor predeterminado para la configuración de depuración)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
-
-# Esta fase se usa para compilar el proyecto de servicio
+# Imagen de .net
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
-WORKDIR /src
-COPY ["NetApiPostgreSQL/NetApiPostgreSQL.csproj", "NetApiPostgreSQL/"]
-RUN dotnet restore "./NetApiPostgreSQL/NetApiPostgreSQL.csproj"
+WORKDIR /App
+
+# Exponemos el puerto
+EXPOSE ${mu_events_ms_INTERNAL_PORT:-8080}
+
+# Release no produce el endpoint con el Swagger, Development sí
+
+ARG BUILD_CONFIGURATION=${mu_events_ms_BUILD_CONFIGURATION:-Release}
+# Copia configuracion del proyecto
+COPY ./*.csproj ./
+
+# Re crea el proyecto
+RUN dotnet restore
+
+# Copia todo lo demas
 COPY . .
-WORKDIR "/src/NetApiPostgreSQL"
-RUN dotnet build "./NetApiPostgreSQL.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Esta fase se usa para publicar el proyecto de servicio que se copiará en la fase final.
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./NetApiPostgreSQL.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+# Crea una publicacion del proyecto
+RUN dotnet publish -o out
 
-# Esta fase se usa en producción o cuando se ejecuta desde VS en modo normal (valor predeterminado cuando no se usa la configuración de depuración)
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+WORKDIR /App
+COPY --from=build /App/out .
 ENTRYPOINT ["dotnet", "NetApiPostgreSQL.dll"]

@@ -25,7 +25,7 @@ namespace NetApiPostgreSQL.Controllers
 
         // GET: api/Eventos/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> Get(int id)
+        public async Task<IActionResult> Get(Guid id)
         {
             var evento = await _eventosInterface.GetEvento(id);
             if (evento == null)
@@ -47,7 +47,7 @@ namespace NetApiPostgreSQL.Controllers
 
         // PUT: api/Eventos/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(int id, [FromBody] Evento evento)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Evento evento)
         {
             if (id != evento.Id)
                 return BadRequest("ID del body no coincide con el ID de la ruta");
@@ -61,7 +61,7 @@ namespace NetApiPostgreSQL.Controllers
 
         // DELETE: api/Eventos/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _eventosInterface.DeleteEvento(id);
             if (result)

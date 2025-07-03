@@ -1,25 +1,55 @@
 services:
-  netapipostgresql:
-    image: ${DOCKER_REGISTRY-}netapipostgresql
+  mu_events_ms:
     build:
-      context: .
-      dockerfile: NetApiPostgreSQL/Dockerfile
-  postgres:
-    build:
-      context: NetApiPostgreSQL/postgreSQL
-      dockerfile: Dockerfile
-    image: mu_events_db
-    container_name: pgTestDB
+      context: ./NetApiPostgreSQL/
+      args:
+        BUILD_CONFIGURATION: ${mu_events_ms_BUILD_CONFIGURATION:-Release}
+      
+    hostname: ${mu_events_ms_HOSTNAME:-mu_events_ms}
+    container_name: ${mu_events_ms_HOSTNAME:-mu_events_ms}
+
+    environment:
+        DB_HOSTNAME: ${mu_events_db_HOSTNAME:-mu_events_db}
+        DB_NAME: ${mu_events_db_DB:-events}
+        DB_USER: ${mu_events_db_USER:-postgres}
+        DB_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
+        DB_PORT: ${mu_events_db_INTERNAL_PORT:-5432}
+
+    ports:
+      - ${mu_events_ms_EXTERNAL_PORT:-8080}:${mu_events_ms_INTERNAL_PORT:-8080}
+
+    depends_on:
+      mu_events_db:
+        condition: service_healthy
+
+
+  mu_events_db:
+    image: postgres:17-alpine
+
+    hostname: ${mu_events_db_HOSTNAME:-mu_events_db}
+    container_name: ${mu_events_db_HOSTNAME:-mu_events_db}
+
+    expose:
+      - ${mu_events_db_INTERNAL_PORT:-5432}
+
     restart: unless-stopped
     environment:
-      POSTGRES_USER: webUser
-      POSTGRES_PASSWORD: 159753
-      POSTGRES_DB: mu_events_db
+      POSTGRES_USER: ${mu_events_db_USER:-postgres}
+      POSTGRES_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
+      POSTGRES_DB: ${mu_events_db_DB:-events}
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-events}"]
+      interval: 1s # Check every second if it is already up
+      retries: 10 
+      start_period: 2s  # Leave two seconds for startup. I think for an almost empty DB with such a small schema it is appropriate
+      timeout: 10s
+
     volumes:
-      - pgdata:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
+      - mu-events-db-data:/var/lib/postgresql/data
+      # Copies the initialization script to the container to create the schema
+      # The script is only run if the database is empty, so it can't run migrations
+      - ./PostgreSQL/:/docker-entrypoint-initdb.d/
 
 volumes:
-  pgdata:
-  pgadmin_data:
+  mu-events-db-data:

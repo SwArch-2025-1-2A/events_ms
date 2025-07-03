@@ -5,14 +5,17 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllers();
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //PostgreSQL Config
-
-var postgresConfig = new PostgresSQL(builder.Configuration["PostgresSQL"]);
+var dbHost = builder.Configuration["DB_HOSTNAME"];
+var dbPort = builder.Configuration["DB_PORT"];
+var dbName = builder.Configuration["DB_NAME"];
+var dbUser = builder.Configuration["DB_USER"];
+var dbPassword = builder.Configuration["DB_PASSWORD"];
+var connectionString = $"Host={dbHost};" + $"Port={dbPort};" + $"Database={dbName};" + $"Username={dbUser};" + $"Password={dbPassword};";
+var postgresConfig = new PostgresSQL(connectionString);
 
 builder.Services.AddSingleton(postgresConfig);
 builder.Services.AddScoped<EventosInterface, Eventos>();
@@ -21,11 +24,9 @@ builder.Services.AddScoped<EventosInterface, Eventos>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+
+app.UseSwagger();
+app.UseSwaggerUI();
 
 //app.UseHttpsRedirection();
 
