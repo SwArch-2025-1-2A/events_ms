@@ -1,55 +1,96 @@
+#--------------------------------------------------------------------------------------------------------------------------#
+#|                                                COMMON CONFIGURATIONS                                                   |#
+#--------------------------------------------------------------------------------------------------------------------------#
+# &mu-events-ms-common-config is what's called an anchor in .yaml files. It lets us reuse everything that follows, so that 
+# setting up the dev and prod profiles is easier
+x-mu-events-ms-common-config: &mu-events-ms-common-config
+  build:
+    context: ./NetApiPostgreSQL/
+    args:
+      BUILD_CONFIGURATION: ${mu_events_ms_BUILD_CONFIGURATION:-Release}
+  
+  hostname: ${mu_events_ms_HOSTNAME:-mu_events_ms}
+  container_name: ${mu_events_ms_HOSTNAME:-mu_events_ms}
+
+  environment:
+    DB_HOSTNAME: ${mu_events_db_HOSTNAME:-mu_events_db}
+    DB_NAME: ${mu_events_db_DB:-events}
+    DB_USER: ${mu_events_db_USER:-postgres}
+    DB_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
+    DB_PORT: ${mu_events_db_INTERNAL_PORT:-5432}
+
+
+x-mu-events-db-common-config: &mu-events-db-common-config
+  image: postgres:17-alpine
+
+  hostname: ${mu_events_db_HOSTNAME:-mu_events_db}
+  container_name: ${mu_events_db_HOSTNAME:-mu_events_db}
+
+  expose:
+    - ${mu_events_db_INTERNAL_PORT:-5432}
+
+  restart: unless-stopped
+  environment:
+    POSTGRES_USER: ${mu_events_db_USER:-postgres}
+    POSTGRES_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
+    POSTGRES_DB: ${mu_events_db_DB:-events}
+
+  healthcheck:
+    test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-events}"]
+    interval: 1s # Check every second if it is already up
+    retries: 10 
+    start_period: 2s  # Leave two seconds for startup. I think for an almost empty DB with such a small schema it is appropriate
+    timeout: 10s
+
+  volumes:
+    - mu-events-db-data:/var/lib/postgresql/data
+    # Copies the initialization script to the container to create the schema
+    # The script is only run if the database is empty, so it can't run migrations
+    - ./PostgreSQL/:/docker-entrypoint-initdb.d/
+
+
 services:
-  mu_events_ms:
-    build:
-      context: ./NetApiPostgreSQL/
-      args:
-        BUILD_CONFIGURATION: ${mu_events_ms_BUILD_CONFIGURATION:-Release}
-      
-    hostname: ${mu_events_ms_HOSTNAME:-mu_events_ms}
-    container_name: ${mu_events_ms_HOSTNAME:-mu_events_ms}
+#--------------------------------------------------------------------------------------------------------------------------#
+#|                                                PROFILES FOR PRODUCTION                                                 |#
+#--------------------------------------------------------------------------------------------------------------------------#
+# These profiles don't expose any ports to the host. The networks they are connected to are defined at the root of the
+# project in a Docker Compose override file
+  mu_events_ms_prod:
+    <<: *mu-events-ms-common-config
+    depends_on:
+      mu_events_db_prod:
+        condition: service_healthy
+    profiles:
+      - prod
 
-    environment:
-        DB_HOSTNAME: ${mu_events_db_HOSTNAME:-mu_events_db}
-        DB_NAME: ${mu_events_db_DB:-events}
-        DB_USER: ${mu_events_db_USER:-postgres}
-        DB_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
-        DB_PORT: ${mu_events_db_INTERNAL_PORT:-5432}
-
+  mu_events_db_prod:
+    <<: *mu-events-db-common-config
+    profiles:
+      - prod
+    
+#--------------------------------------------------------------------------------------------------------------------------#
+#|                                                PROFILES FOR DEVELOPMENT                                                |#
+#--------------------------------------------------------------------------------------------------------------------------#
+  # Events microservice for development (connected to the default network and exposing its ports to the host)
+  mu_events_ms_dev:
+    <<: *mu-events-ms-common-config
     ports:
       - ${mu_events_ms_EXTERNAL_PORT:-8080}:${mu_events_ms_INTERNAL_PORT:-8080}
-
     depends_on:
-      mu_events_db:
+      mu_events_db_dev:
         condition: service_healthy
+    profiles:
+      - dev
+    networks:
+      - default
 
+  mu_events_db_dev:
+    <<: *mu-events-db-common-config
+    profiles:
+      - dev
+    networks:
+      - default
 
-  mu_events_db:
-    image: postgres:17-alpine
-
-    hostname: ${mu_events_db_HOSTNAME:-mu_events_db}
-    container_name: ${mu_events_db_HOSTNAME:-mu_events_db}
-
-    expose:
-      - ${mu_events_db_INTERNAL_PORT:-5432}
-
-    restart: unless-stopped
-    environment:
-      POSTGRES_USER: ${mu_events_db_USER:-postgres}
-      POSTGRES_PASSWORD: ${mu_events_db_PASSWORD:-meetUN}
-      POSTGRES_DB: ${mu_events_db_DB:-events}
-
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-events}"]
-      interval: 1s # Check every second if it is already up
-      retries: 10 
-      start_period: 2s  # Leave two seconds for startup. I think for an almost empty DB with such a small schema it is appropriate
-      timeout: 10s
-
-    volumes:
-      - mu-events-db-data:/var/lib/postgresql/data
-      # Copies the initialization script to the container to create the schema
-      # The script is only run if the database is empty, so it can't run migrations
-      - ./PostgreSQL/:/docker-entrypoint-initdb.d/
 
 volumes:
   mu-events-db-data:
